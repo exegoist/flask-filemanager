@@ -28,7 +28,7 @@
             <tr>
                 <td><a href="/{{ file.url }}">{{ file.name }}</a></td>
                 <td>{{ file.size|filesizeformat }}</td>
-                <td>{{ file.time }}</td>
+                <td>{{ file.time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
             </tr>
             {% endfor %}
             {% endif %}
