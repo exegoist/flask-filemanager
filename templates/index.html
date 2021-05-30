@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+</head>
+<body>
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li><a href="/scan" class="button">Scan for Files</a></li>
+        </ul>
+    </div>
+</div>
+<div class="raw">
+    <div class="large-9 medium-12 large-centered columns">
+        <table width="100%">
+            <tbody>
+            <tr>
+                <th width="30%">name</th>
+                <th width="30%">size</th>
+                <th width="30%">time</th>
+
+            </tr>
+            {% if files %}
+            {% for file in files %}
+            <tr>
+                <td><a href="/{{ file.url }}">{{ file.name }}</a></td>
+                <td>{{ file.size|filesizeformat }}</td>
+                <td>{{ file.time }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
