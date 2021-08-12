@@ -48,7 +48,7 @@ def scan_folder():
 def delete_file(del_num):
     file = File[del_num]
     try:
-        os.remove(os.path.join(DIR, file.name))
+        os.remove(os.path.join(DIR, file.url[1:]))
         file.delete()
         return redirect(url_for('index'))
     except:
