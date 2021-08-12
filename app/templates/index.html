@@ -2,39 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <title>Scan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="top-bar">
-    <div class="top-bar-left">
-        <ul class="menu">
-            <li><a href="/scan" class="button">Scan for Files</a></li>
-        </ul>
-    </div>
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <ul class="navbar-nav me-auto">
+        <li class="btn btn-sm btn-primary me-2"><a class="nav-link" href="/">Home</a></li>
+        <li class="btn btn-sm btn-outline-secondary"><a class="nav-link" href="/scan">Scan for Files</a></li>
+    </ul>
+    <form class="form-inline d-flex" action="">
+        <input class="form-control mr-sm-2 me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{request.args.search}}">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 </div>
-<div class="raw">
-    <div class="large-9 medium-12 large-centered columns">
-        <table width="100%">
-            <tbody>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <th width="30%">name</th>
-                <th width="30%">size</th>
-                <th width="30%">time</th>
-
+                <th scope="col">File</th>
+                <th scope="col">Size</th>
+                <th scope="col">Time</th>
+                <th scope="col">Handle</th>
             </tr>
+        </thead>
+        <tbody>
             {% if files %}
             {% for file in files %}
-            <tr>
-                <td><a href="{{ file.url }}">{{ file.name }}</a></td>
-                <td>{{ file.size|filesizeformat }}</td>
-                <td>{{ file.time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-            </tr>
+        <tr>
+            <td><a class="btn btn-outline-secondary" href="{{ file.url }}">{{ file.name }}</a></td>
+            <td>{{ file.size|filesizeformat }}</td>
+            <td>{{ file.time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td><a class="btn btn-outline-danger" href="/delete/{{ file.id }}">delete</a></td>
+        </tr>
             {% endfor %}
             {% endif %}
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
+    <div class="container">
+        <nav>
+            <ul class="pagination">
+                {% for page in pages %}
+                {% if page %}
+                    <li class="page-item">
+                        <a class="page-link" href="/{{ page }}"> {{ page }} </a>
+                    </li>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
 </body>
 </html>
