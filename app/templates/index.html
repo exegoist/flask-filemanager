@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>Scan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <ul class="navbar-nav me-auto">
-        <li class="btn btn-sm btn-primary me-2"><a class="nav-link" href="/">Home</a></li>
+        <li class="btn btn-sm btn-primary me-2"><a class="nav-link" href="/clear">Home</a></li>
         <li class="btn btn-sm btn-outline-secondary"><a class="nav-link" href="/scan">Scan for Files</a></li>
     </ul>
     <form class="form-inline d-flex" action="">
         <input class="form-control mr-sm-2 me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{request.args.search}}">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
@@ -47,7 +46,7 @@
 </div>
     <div class="container">
         <nav>
-            <ul class="pagination">
+            <ul class="pagination pagination-lg justify-content-center">
                 {% for page in pages %}
                 {% if page %}
                     <li class="page-item">
@@ -56,7 +55,13 @@
                 {% else %}
                 {% endif %}
                 {% endfor %}
-            </ul>
+            </ul >
+            {% if total > 10 %}
+                 <form class="form-inline d-flex" action="">
+                 <input class="form-control mr-sm-2 me-2" type="text" name="page" placeholder="" aria-label="Page" value="{{request.args.page}}">
+                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">of {{total}} total</button>
+                 </form>
+            {% endif %}
         </nav>
     </div>
 </body>
